@@ -63,7 +63,12 @@ border: 0;
   cursor: pointer;
 }
 
-.box input[type="submit"]:hover{
+.box input[type="submit"]:hover,.box input[type="button"]:hover{
   background: #2ecc71;
 }
 
+.box input:disabled:hover{
+  background: darkgrey;
+  color: black;
+  content: "Incorect values"
+}

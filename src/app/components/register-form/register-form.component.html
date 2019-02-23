@@ -1,15 +1,18 @@
 
-<!--Врубил встроеную валидацию чтоб не мучаться (она ни на что не влияет в данном примере работаю через классы Ангуляра)-->
-<form class="box" #myform="ngForm" ngNativeValidate >
+<!--Врубил встроеную валидацию чтоб не мучаться (ngNativeValidate она ни на что не влияет в данном примере работаю через классы Ангуляра)-->
+<form class="box" #myform="ngForm"  >
 
   <!--показ блока ошибок валидации если таковые есть на форме-->
   <div class="errorblock" *ngIf="myform.invalid" style="color: red">
       <p [hidden]="useremail.valid || (useremail.pristine && !myform.submitted)">
         * Email format should be <i>john@doe.com</i>.
       </p>
-      <p [hidden]="userpass.valid || userpass.untouched || (userpass.pristine && !f.submitted)">
+      <p [hidden]="userpass.valid || userpass.untouched || (userpass.pristine && !myform.submitted)">
        * Password required or incorect
       </p>
+      <p [hidden]="userpass.untouched || userpass2.value===userpass.value  || ( userpass.pristine && !myform.submitted)">
+        * Confirm Password must be the same with Password
+       </p>
   </div>
 
   <h1>Registration</h1>
@@ -20,10 +23,12 @@
 <input type="password" [(ngModel)]="user.password" name="password" #userpass="ngModel" placeholder="password" #passspy required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
       minlength="8" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
 <!--поле для потверждения пароля-->
-<input type="password" [(ngModel)]="user.password2" name="password2" #userpass2="ngModel" placeholder="confirm_password" #pass2spy
+<input type="password" [(ngModel)]="user.password2" name="password2" #userpass2="ngModel" placeholder="confirm_password" #pass2spy required
        title="this field must be the same with Password field">
 <!--кнопка отправки формы пока форма не валидна она не активна-->
-<input type="button" [disabled]="!myform.valid  " (click)="save()" value="Register user">
+<!--для валидации пароля условие если значения полей равны то активируем кнопку-->
+<input type="button" [disabled]="!myform.form.valid || (userpass.value!=userpass2.value)" (click)="save()" value="Register user">
+<input type="submit" value="Clean form" (click)="resetModel();myform.reset()">
 </form>
 
 
@@ -34,4 +39,8 @@
 <!--шпионим за классами input -->
 <h1>{{mailspy.className | json }}</h1>
 <h1>{{ passspy.className | json }}</h1>
-<h1>{{ pass2spy.className | json }}</h
+<h1>{{ pass2spy.className | json }}</h1>
+
+<!--значение полей паролей-->
+<h1>{{ userpass.value }}</h1>
+<h1>{{ userpass2.value }}</h1>
