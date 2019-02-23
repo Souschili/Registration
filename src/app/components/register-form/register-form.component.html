@@ -3,27 +3,27 @@
 <form class="box" #myform="ngForm" ngNativeValidate >
 
   <!--показ блока ошибок валидации если таковые есть на форме-->
-  <div class="errorblock" *ngIf="myform.invalid">
-      <small style="color: red" [hidden]="useremail.valid || (useremail.pristine && !myform.submitted)">
-         * Email format should be <i>john@doe.com</i>.
-      </small>
-
+  <div class="errorblock" *ngIf="myform.invalid" style="color: red">
+      <p [hidden]="useremail.valid || (useremail.pristine && !myform.submitted)">
+        * Email format should be <i>john@doe.com</i>.
+      </p>
+      <p [hidden]="userpass.valid || userpass.untouched || (userpass.pristine && !f.submitted)">
+       * Password required or incorect
+      </p>
   </div>
 
   <h1>Registration</h1>
   <!--^[a-zA-Z0–9_.+-]+@[a-zA-Z0–9-]+.[a-zA-Z0–9-.]+$ патерн для имейла-->
-  <input type="email" [(ngModel)]="user.email" name="email" placeholder="email" #useremail="ngModel" #mailspy equired email  >
-  <!--показ ошибок инпута для email-->
-  <small style="color: red" [hidden]="useremail.valid || (useremail.pristine && !myform.submitted)">
-    Email format should be <i>john@doe.com</i>.
-  </small>
+  <input type="email" [(ngModel)]="user.email" name="email" placeholder="email"
+         #useremail="ngModel" #mailspy equired email title="Must be in format like user@mail.com" >
 <!--поле для пароля-->
-<input type="password" [(ngModel)]="user.password" name="password" #userpass="ngModel" placeholder="password" #passspy required   >
-
-
-
+<input type="password" [(ngModel)]="user.password" name="password" #userpass="ngModel" placeholder="password" #passspy required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+      minlength="8" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+<!--поле для потверждения пароля-->
+<input type="password" [(ngModel)]="user.password2" name="password2" #userpass2="ngModel" placeholder="confirm_password" #pass2spy
+       title="this field must be the same with Password field">
 <!--кнопка отправки формы пока форма не валидна она не активна-->
-<input type="button" [disabled]="!myform.valid" (click)="save()" value="Register user">
+<input type="button" [disabled]="!myform.valid  " (click)="save()" value="Register user">
 </form>
 
 
@@ -34,3 +34,4 @@
 <!--шпионим за классами input -->
 <h1>{{mailspy.className | json }}</h1>
 <h1>{{ passspy.className | json }}</h1>
+<h1>{{ pass2spy.className | json }}</h
