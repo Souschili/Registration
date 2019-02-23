@@ -1,0 +1,25 @@
+
+
+<!--Врубил встроеную валидацию чтоб не мучаться -->
+<form class="box" #myform ngNativeValidate >
+    <h1>Registration</h1>
+    <input type="email" #spybot [(ngModel)]="user.Email" name="Email" placeholder="Email" required >
+    <input type="password" [(ngModel)]="user.Password" name="Password" placeholder="Password" id="password" required minlength="4">
+    <input type="password" [(ngModel)]="user.Password2" name="Password2" placeholder="Confirm password" id="confirm_password" required minlength="4">
+    <input type="submit" value="Register user">
+    <!--myform.reset сбрасывает значения ngModel классов для полей-->
+    <!--метод resetModel создает новый обьект нашей модели -->
+    <input type="button" (click)="resetModel();myform.reset()" value="Clean form">
+</form>
+<!--текущая модель-->
+<h1>{{user | json}}</h1>
+<!--шпионим за классами input -->
+<h1>{{spybot.className | json }}</h1>
+
+<script>
+
+</script>
+
+
+
+
