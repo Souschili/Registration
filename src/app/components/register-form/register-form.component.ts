@@ -12,8 +12,11 @@ export class RegisterFormComponent implements OnInit {
   public user: User;
   constructor() { }
 
-  public resetModel()
+  public save()
   {
+    alert('Registration complicte!!')
+  }
+  public resetModel() {
     this.user = new User();
   }
   ngOnInit() {

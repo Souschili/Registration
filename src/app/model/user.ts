@@ -1,7 +1,7 @@
-export class User{
+export class User {
 
-  public Email = '';
-  public Password = '';
-  public Password2 = '';
+  public email = '';
+  public password = '';
+  public password2 = '';
 
 }
