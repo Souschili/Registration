@@ -28,6 +28,7 @@
 <!--кнопка отправки формы пока форма не валидна она не активна-->
 <!--для валидации пароля условие если значения полей равны то активируем кнопку-->
 <input type="button" [disabled]="!myform.form.valid || (userpass.value!=userpass2.value)" (click)="save()" value="Register user">
+<!--очищаем форму и классы + пересоздаем текущую модель-->
 <input type="submit" value="Clean form" (click)="resetModel();myform.reset()">
 </form>
 
